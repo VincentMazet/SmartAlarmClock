@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "460249589321",
+    "firebase_url": "https://smart-clock-56631.firebaseio.com",
+    "project_id": "smart-clock-56631",
+    "storage_bucket": "smart-clock-56631.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460249589321:android:985d6db70733120c",
+        "android_client_info": {
+          "package_name": "smartclock.iut.com.smartclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460249589321-29kkrbq69grmbp7d96iek2n8qsj0mpdk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smartclock.iut.com.smartclock",
+            "certificate_hash": "ea0748b553720805d7a825be873d5f904bc83455"
+          }
+        },
+        {
+          "client_id": "460249589321-1p1ndcfqi3v7p680g8lh8cgk4m07k4r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdIlcaECDW0-9ziQzjZXcuSMDkPf4r2vE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460249589321-1p1ndcfqi3v7p680g8lh8cgk4m07k4r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460249589321:android:5b08b732d9de4d55",
+        "android_client_info": {
+          "package_name": "fr.vincentmazet.smartalarmclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460249589321-blltonn5qr96vgggbibr1qg7fvn2atkn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.vincentmazet.smartalarmclock",
+            "certificate_hash": "ab72610d95a354aa3c24350646e0bcd0995b738b"
+          }
+        },
+        {
+          "client_id": "460249589321-1p1ndcfqi3v7p680g8lh8cgk4m07k4r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdIlcaECDW0-9ziQzjZXcuSMDkPf4r2vE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460249589321-1p1ndcfqi3v7p680g8lh8cgk4m07k4r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
