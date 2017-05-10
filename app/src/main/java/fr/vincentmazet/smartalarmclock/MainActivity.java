@@ -3,7 +3,10 @@ package fr.vincentmazet.smartalarmclock;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +50,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         this.overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_right);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.System.canWrite(getApplication())) {
+            }
+            else {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
 
         buttonSettings = (Button) findViewById(R.id.buttonSettings);
 
