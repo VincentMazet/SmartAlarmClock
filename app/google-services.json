@@ -59,6 +59,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "460249589321-atv1oemu20egj35baepek453q2la83dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.vincentmazet.smartalarmclock",
+            "certificate_hash": "82f2df0be619f3eabaf49ef70c48e4491f8ec03e"
+          }
+        },
+        {
+          "client_id": "460249589321-ejmi16r76pn4fgilej97g4atif6teda5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.vincentmazet.smartalarmclock",
+            "certificate_hash": "ea0748b553720805d7a825be873d5f904bc83455"
+          }
+        },
+        {
           "client_id": "460249589321-blltonn5qr96vgggbibr1qg7fvn2atkn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
