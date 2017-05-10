@@ -5,18 +5,21 @@ package fr.vincentmazet.smartalarmclock;
  */
 
 public class Settings {
+    public int luminosity = 100;
 
-    public int luminosity;
+    public int theme = 1;
 
-    public int theme;
+    public boolean enableAlarm = false;
 
-    public boolean enableAlarm;
+    public int hour = 10;
 
-    public String hour;
+    public int minutes = 0;
 
-    public String minutes;
+    public String customMessage = "";
 
-    public String customMessage;
+    public boolean enableWeather = false;
 
-    public boolean enableWeather;
+    //need for Firebase
+    public Settings() {
+    }
 }

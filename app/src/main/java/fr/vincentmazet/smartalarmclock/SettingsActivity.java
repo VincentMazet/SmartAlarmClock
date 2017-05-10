@@ -11,7 +11,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import android.widget.LinearLayout;
 
 /**
@@ -23,6 +28,9 @@ public class SettingsActivity extends Activity {
     private Button buttonBackHome;
     private CheckBox checkBoxWeather;
     private FirebaseDatabase database;
+    private Settings settings;
+    private String userUid;
+    private DatabaseReference refUser;
 
     private LinearLayout orangeTheme, greenTheme, greyTheme;
     private LinearLayout baseLayout;
@@ -37,6 +45,23 @@ public class SettingsActivity extends Activity {
                 R.anim.slide_out_left);
 
         database = FirebaseDatabase.getInstance();
+        userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        refUser = database.getReference().child("Datas").child(userUid).getRef();
+        refUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    settings = new Settings();
+                    dataSnapshot.getRef().setValue(settings);
+                }
+                settings = dataSnapshot.getValue(Settings.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         card1 = (CardView) findViewById(R.id.card1);
         card2 = (CardView) findViewById(R.id.card2);
@@ -53,8 +78,7 @@ public class SettingsActivity extends Activity {
         buttonBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         });
 
@@ -62,7 +86,7 @@ public class SettingsActivity extends Activity {
         checkBoxWeather.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                settings.enableWeather = isChecked;
             }
         });
 
@@ -113,4 +137,11 @@ public class SettingsActivity extends Activity {
         });
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        refUser.setValue(settings);
+    }
+
 }
