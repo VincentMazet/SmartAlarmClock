@@ -27,6 +27,7 @@ public class SettingsActivity extends Activity {
 
     private Button buttonBackHome;
     private CheckBox checkBoxWeather;
+    private CheckBox checkBoxAlarm;
     private FirebaseDatabase database;
     private Settings settings;
     private String userUid;
@@ -40,9 +41,10 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-
         this.overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_left);
+
+        findView();
 
         database = FirebaseDatabase.getInstance();
         userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -54,7 +56,10 @@ public class SettingsActivity extends Activity {
                     settings = new Settings();
                     dataSnapshot.getRef().setValue(settings);
                 }
-                settings = dataSnapshot.getValue(Settings.class);
+                else{
+                    settings = dataSnapshot.getValue(Settings.class);
+                }
+                updateUI();
             }
 
             @Override
@@ -63,18 +68,7 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        card1 = (CardView) findViewById(R.id.card1);
-        card2 = (CardView) findViewById(R.id.card2);
-        card3 = (CardView) findViewById(R.id.card3);
-        card4 = (CardView) findViewById(R.id.card4);
-        card5 = (CardView) findViewById(R.id.card5);
-        card6 = (CardView) findViewById(R.id.card6);
 
-        baseLayout = (LinearLayout) findViewById(R.id.baseLayout);
-
-
-
-        buttonBackHome = (Button) findViewById(R.id.buttonBackHome);
         buttonBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +76,6 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        checkBoxWeather = (CheckBox) findViewById(R.id.checkboxWeather);
         checkBoxWeather.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -90,52 +83,82 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        orangeTheme = (LinearLayout) findViewById(R.id.orangeTheme);
+        checkBoxAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                settings.enableAlarm = isChecked;
+            }
+        });
+
         orangeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseLayout.setBackgroundColor(Color.parseColor(Theme.ORANGE.getColor1()));
-
-                card1.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
-                card2.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
-                card3.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
-                card4.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
-                card5.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
-                card6.setCardBackgroundColor(Color.parseColor(Theme.ORANGE.getColor2()));
+                settings.theme = 1;
+                switchTheme();
             }
         });
 
-
-        greenTheme = (LinearLayout) findViewById(R.id.greenTheme);
         greenTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseLayout.setBackgroundColor(Color.parseColor(Theme.GREEN.getColor1()));
-
-                card1.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
-                card2.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
-                card3.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
-                card4.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
-                card5.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
-                card6.setCardBackgroundColor(Color.parseColor(Theme.GREEN.getColor2()));
+                settings.theme = 2;
+                switchTheme();
             }
         });
 
-        greyTheme = (LinearLayout) findViewById(R.id.greyTheme);
         greyTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseLayout.setBackgroundColor(Color.parseColor(Theme.GREY.getColor1()));
-
-                card1.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
-                card2.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
-                card3.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
-                card4.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
-                card5.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
-                card6.setCardBackgroundColor(Color.parseColor(Theme.GREY.getColor2()));
+                settings.theme = 3;
+                switchTheme();
             }
         });
 
+    }
+
+    private void findView(){
+        card1 = (CardView) findViewById(R.id.card1);
+        card2 = (CardView) findViewById(R.id.card2);
+        card3 = (CardView) findViewById(R.id.card3);
+        card4 = (CardView) findViewById(R.id.card4);
+        card5 = (CardView) findViewById(R.id.card5);
+        card6 = (CardView) findViewById(R.id.card6);
+        baseLayout = (LinearLayout) findViewById(R.id.baseLayout);
+        buttonBackHome = (Button) findViewById(R.id.buttonBackHome);
+        checkBoxWeather = (CheckBox) findViewById(R.id.checkboxWeather);
+        orangeTheme = (LinearLayout) findViewById(R.id.orangeTheme);
+        greenTheme = (LinearLayout) findViewById(R.id.greenTheme);
+        greyTheme = (LinearLayout) findViewById(R.id.greyTheme);
+        checkBoxAlarm = (CheckBox) findViewById(R.id.checkboxAlarm);
+    }
+
+    private void switchTheme(){
+        int color1 = Color.parseColor(Theme.ORANGE.getColor1());;
+        int color2 = Color.parseColor(Theme.ORANGE.getColor2());;
+        switch (settings.theme){
+            case 2:
+                color1 = Color.parseColor(Theme.GREEN.getColor1());
+                color2 = Color.parseColor(Theme.GREEN.getColor2());
+                break;
+            case 3:
+                color1 = Color.parseColor(Theme.GREY.getColor1());
+                color2 = Color.parseColor(Theme.GREY.getColor2());
+                break;
+        }
+
+        baseLayout.setBackgroundColor(color1);
+
+        card1.setCardBackgroundColor(color2);
+        card2.setCardBackgroundColor(color2);
+        card3.setCardBackgroundColor(color2);
+        card4.setCardBackgroundColor(color2);
+        card5.setCardBackgroundColor(color2);
+        card6.setCardBackgroundColor(color2);
+    }
+
+    private void updateUI(){
+        switchTheme();
+        checkBoxWeather.setChecked(settings.enableWeather);
     }
 
     @Override
