@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+
+import com.google.firebase.database.FirebaseDatabase;
 import android.widget.LinearLayout;
 
 /**
@@ -17,6 +21,8 @@ import android.widget.LinearLayout;
 public class SettingsActivity extends Activity {
 
     private Button buttonBackHome;
+    private CheckBox checkBoxWeather;
+    private FirebaseDatabase database;
 
     private LinearLayout orangeTheme, greenTheme, greyTheme;
     private LinearLayout baseLayout;
@@ -29,6 +35,8 @@ public class SettingsActivity extends Activity {
 
         this.overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_left);
+
+        database = FirebaseDatabase.getInstance();
 
         card1 = (CardView) findViewById(R.id.card1);
         card2 = (CardView) findViewById(R.id.card2);
@@ -47,6 +55,14 @@ public class SettingsActivity extends Activity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        checkBoxWeather = (CheckBox) findViewById(R.id.checkboxWeather);
+        checkBoxWeather.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
             }
         });
 

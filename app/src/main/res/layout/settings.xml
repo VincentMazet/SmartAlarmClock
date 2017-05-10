@@ -281,6 +281,7 @@
                     android:textSize="36sp" />
 
                 <CheckBox
+                    android:id="@+id/checkboxWeather"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Disabled" />
