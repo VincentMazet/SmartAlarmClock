@@ -72,22 +72,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    DatabaseReference ref = database.getReference().child("Datas").child(user.getUid()).getRef();
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.getValue() == null){
-                                dataSnapshot.child("clock_activated").getRef().setValue(false);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                } else {
+                if (user == null) {
                     signIn();
                 }
             }
