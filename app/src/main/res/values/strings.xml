@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SmartAlarmClock</string>
+    <string name="weather_key">97a886797a144905ff462b775d124877</string>
 </resources>

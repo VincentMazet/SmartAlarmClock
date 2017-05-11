@@ -3,6 +3,7 @@
     package="fr.vincentmazet.smartalarmclock">
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.2.0/a09926806199499a20b2f5168779499abfa33342/converter-gson-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a09926806199499a20b2f5168779499abfa33342">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/converter-gson-2.2.0_3459a51cba49db82938c53caef77aeb38694021e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_1528f4b9b1a1ef8bd5c5cf9c1ee2aec449745251.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.2.0/41e67dba73c3347e4503761642c39d0e06ca1f2/retrofit-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="041e67dba73c3347e4503761642c39d0e06ca1f2">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/retrofit-2.2.0_723f9d674322f49bb9cbf5602b690e25823b4649.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/gson-2.7_6591e6094ee212519bf9ed46866a671f2e581574.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.11.0/840897fcd7223a8143f1d9b6f69714e7be34fd50/okio-1.11.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/okio-1.11.0_10e3e7667b9d03e13a05edb259e649f5c0c90a35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/iem/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/iem/Documents/Project/Android/SmartAlarmClock/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_ade0d004ac651d6494c2643af03e978b5a888950.jar" />
+    </item>
+
+</items>

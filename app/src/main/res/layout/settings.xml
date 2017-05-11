@@ -249,8 +249,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="#FFA726"
-            app:contentPadding="20dp">
+            app:cardBackgroundColor="#FFA726">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,12 +265,13 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextCustumMsg"
+                    android:id="@+id/editTextCustomMsg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Write a custom message here..."
+                    android:imeOptions="actionDone"
                     android:inputType="textMultiLine" />
             </LinearLayout>
 
