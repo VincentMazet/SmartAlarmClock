@@ -27,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth.AuthStateListener mAuthListener;
     private  FirebaseDatabase database;
     public  static final int RC_SIGN_IN = 455;
+    public  static final int RC_SETTING = 666;
     private GoogleApiClient googleApiClient;
     FirebaseUser user;
 
@@ -68,11 +71,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         this.overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_right);
 
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.System.canWrite(getApplication())) {
-            }
+                }
             else {
                 Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 intent.setData(Uri.parse("package:" + getPackageName()));
@@ -80,11 +81,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 startActivity(intent);
             }
         }
+
+        buttonSettings = (Button) findViewById(R.id.buttonSettings);
+
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), SettingsActivity.class);
-                startActivity(myIntent);
+                startActivityForResult(myIntent,RC_SETTING);
             }
         });
 
@@ -130,7 +134,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         };
 
         mAuth = FirebaseAuth.getInstance();
+
         database = FirebaseDatabase.getInstance();
+
     }
 
     @Override
@@ -155,6 +161,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RC_SETTING){
+            if(resultCode == 999){
+                signIn();
+                signOut();
+            }
+        }
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -185,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 // show it
                 alertDialog.show();
             }
+            googleApiClient.isConnected();
         }
     }
 
@@ -210,6 +224,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void signOut() {
+        /*googleApiClient.isConnected();
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        String test = status.getStatusMessage();
+                    }
+                });*/
     }
 
     private void switchTheme(){

@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,6 +59,8 @@ public class SettingsActivity extends Activity {
     private List<String> listDefaultText = new ArrayList<>();
     private ArrayAdapter<String> dataAdapter;
     private EditText editTextCustumMsg;
+    private Button buttonDisconnect;
+    private boolean synchronisation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class SettingsActivity extends Activity {
                 } else {
                     settingsApp = dataSnapshot.getValue(SettingsApp.class);
                 }
+                synchronisation = true;
                 updateUI();
             }
 
@@ -95,11 +99,11 @@ public class SettingsActivity extends Activity {
                 int index;
                 try {
                     index = Integer.parseInt(dataSnapshot.getKey());
-                }catch (Exception e){
+                } catch (Exception e) {
                     index = -1;
                 }
-                if(index != -1) {
-                    listDefaultText.add(index,dataSnapshot.getValue(String.class));
+                if (index != -1) {
+                    listDefaultText.add(index, dataSnapshot.getValue(String.class));
                     dataAdapter.notifyDataSetChanged();
                 }
             }
@@ -109,11 +113,11 @@ public class SettingsActivity extends Activity {
                 int index;
                 try {
                     index = Integer.parseInt(dataSnapshot.getKey());
-                }catch (Exception e){
+                } catch (Exception e) {
                     index = -1;
                 }
-                if(index != -1) {
-                    listDefaultText.set(index,dataSnapshot.getValue(String.class));
+                if (index != -1) {
+                    listDefaultText.set(index, dataSnapshot.getValue(String.class));
                     dataAdapter.notifyDataSetChanged();
                 }
             }
@@ -123,10 +127,10 @@ public class SettingsActivity extends Activity {
                 int index;
                 try {
                     index = Integer.parseInt(dataSnapshot.getKey());
-                }catch (Exception e){
+                } catch (Exception e) {
                     index = -1;
                 }
-                if(index != -1) {
+                if (index != -1) {
                     listDefaultText.remove(index);
                     dataAdapter.notifyDataSetChanged();
                 }
@@ -147,17 +151,19 @@ public class SettingsActivity extends Activity {
         spinner.setAdapter(dataAdapter);
 
 
-        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                settingsApp.prerecordTextId = (int) id;
+                if (settingsApp != null)
+                    settingsApp.prerecordTextId = (int) id;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                settingsApp.prerecordTextId = 0;
+                if (settingsApp != null)
+                    settingsApp.prerecordTextId = 0;
             }
-        });*/
+        });
 
 
         buttonBackHome.setOnClickListener(new View.OnClickListener() {
@@ -215,46 +221,61 @@ public class SettingsActivity extends Activity {
         luminositySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    settingsApp.luminosity = progress;
-                                setBrightness(progress);
-                            }
+                settingsApp.luminosity = progress;
+                setBrightness(progress);
+            }
 
-                    @Override
+            @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                            }
+            }
 
-                    @Override
+            @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                            }
+            }
         });
 
         Date date = new Date();
-                final Calendar calendar = GregorianCalendar.getInstance();
-                calendar.setTime(date);
-                checkboxDisabledAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        checkboxDisabledAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked) {
-                                        TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
-                                                        checkboxDisabledAlarm.setText(hourOfDay + ":" +  minute);
-                                                        settingsApp.enableAlarm = true;
-                                                        settingsApp.hour = hourOfDay;
-                                                        settingsApp.minutes = minute;
-                                                    }
-                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
-                                        timePickerDialog.show();
-                    
-                                            } else {
-                                        checkboxDisabledAlarm.setText("Disabled");
-                                        settingsApp.enableAlarm = false;
-                                    }
+                if (isChecked) {
+                    if (!synchronisation) {
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, final int hourOfDay, final int minute) {
+                                checkboxDisabledAlarm.setText(hourOfDay + ":" + minute);
+                                settingsApp.enableAlarm = true;
+                                settingsApp.hour = hourOfDay;
+                                settingsApp.minutes = minute;
+                            }
+                        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+                        timePickerDialog.show();
+                    }else{
+                        checkboxDisabledAlarm.setText(settingsApp.hour + ":" + settingsApp.minutes);
+                        synchronisation = false;
+                    }
+
+
+                } else {
+                    checkboxDisabledAlarm.setText("Disabled");
+                    settingsApp.enableAlarm = false;
+                }
             }
         });
+
+        buttonDisconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(999);
+                finish();
+            }
+        });
+
     }
 
-    private void setBrightness(int progress){
+    private void setBrightness(int progress) {
         Settings.System.putInt(getApplication().getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS, progress);
         Settings.System.putInt(
@@ -270,9 +291,9 @@ public class SettingsActivity extends Activity {
             e.printStackTrace();
         }
     }
-    
 
-    private void findView(){
+
+    private void findView() {
         card1 = (CardView) findViewById(R.id.card1);
         card2 = (CardView) findViewById(R.id.card2);
         card3 = (CardView) findViewById(R.id.card3);
@@ -289,12 +310,15 @@ public class SettingsActivity extends Activity {
         checkboxDisabledAlarm = (CheckBox) findViewById(R.id.checkboxDisabledAlarm);
         spinner = (Spinner) findViewById(R.id.spinner);
         editTextCustumMsg = (EditText) findViewById(R.id.editTextCustumMsg);
+        buttonDisconnect = (Button) findViewById(R.id.btDisconnect);
     }
 
-    private void switchTheme(){
-        int color1 = Color.parseColor(Theme.ORANGE.getColor1());;
-        int color2 = Color.parseColor(Theme.ORANGE.getColor2());;
-        switch (settingsApp.theme){
+    private void switchTheme() {
+        int color1 = Color.parseColor(Theme.ORANGE.getColor1());
+        ;
+        int color2 = Color.parseColor(Theme.ORANGE.getColor2());
+        ;
+        switch (settingsApp.theme) {
             case 2:
                 color1 = Color.parseColor(Theme.GREEN.getColor1());
                 color2 = Color.parseColor(Theme.GREEN.getColor2());
@@ -315,21 +339,24 @@ public class SettingsActivity extends Activity {
         card6.setCardBackgroundColor(color2);
     }
 
-    private void updateUI(){
+    private void updateUI() {
         switchTheme();
         checkBoxWeather.setChecked(settingsApp.enableWeather);
-        if(settingsApp.customMessage.length() > 1){
+        if (settingsApp.customMessage.length() > 1) {
             editTextCustumMsg.setText(settingsApp.customMessage);
         }
         spinner.setSelection(settingsApp.prerecordTextId);
         setBrightness(settingsApp.luminosity);
+        checkboxDisabledAlarm.setChecked(settingsApp.enableAlarm);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        settingsApp.customMessage = editTextCustumMsg.getText().toString();
-        refUser.setValue(settingsApp);
+        if (settingsApp != null) {
+            settingsApp.customMessage = editTextCustumMsg.getText().toString();
+            refUser.setValue(settingsApp);
+        }
     }
 
 }
