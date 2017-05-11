@@ -4,7 +4,7 @@ package fr.vincentmazet.smartalarmclock;
  * Created by iem on 10/05/2017.
  */
 
-public class Settings {
+public class SettingsApp {
     public int luminosity = 100;
 
     public int theme = 1;
@@ -19,7 +19,9 @@ public class Settings {
 
     public boolean enableWeather = false;
 
+    public int prerecordTextId = 0;
+
     //need for Firebase
-    public Settings() {
+    public SettingsApp() {
     }
 }
