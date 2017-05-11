@@ -104,35 +104,33 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     signIn();
+                }else{
+                    database = FirebaseDatabase.getInstance();
+                    userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    refUser = database.getReference().child("Datas").child(userUid).getRef();
+                    refUser.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() == null) {
+                                settingsApp = new SettingsApp();
+                                dataSnapshot.getRef().setValue(settingsApp);
+                            } else {
+                                settingsApp = dataSnapshot.getValue(SettingsApp.class);
+                            }
+                            updateUI();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
 
         mAuth = FirebaseAuth.getInstance();
-
         database = FirebaseDatabase.getInstance();
-
-
-        database = FirebaseDatabase.getInstance();
-        userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        refUser = database.getReference().child("Datas").child(userUid).getRef();
-        refUser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null) {
-                    settingsApp = new SettingsApp();
-                    dataSnapshot.getRef().setValue(settingsApp);
-                } else {
-                    settingsApp = dataSnapshot.getValue(SettingsApp.class);
-                }
-                updateUI();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
