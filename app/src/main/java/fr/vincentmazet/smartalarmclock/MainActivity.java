@@ -3,6 +3,7 @@ package fr.vincentmazet.smartalarmclock;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,8 +11,14 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -42,12 +49,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient googleApiClient;
     FirebaseUser user;
 
+    private SettingsApp settingsApp;
+    private String userUid;
+    private DatabaseReference refUser;
+
+    private LinearLayout baseLayout;
+    private CardView card1, card2, card3, card4, card5, card6;
+
     private Button buttonSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findView();
 
         this.overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_right);
@@ -64,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 startActivity(intent);
             }
         }
-
-        buttonSettings = (Button) findViewById(R.id.buttonSettings);
-
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +112,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         database = FirebaseDatabase.getInstance();
 
+
+        database = FirebaseDatabase.getInstance();
+        userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        refUser = database.getReference().child("Datas").child(userUid).getRef();
+        refUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    settingsApp = new SettingsApp();
+                    dataSnapshot.getRef().setValue(settingsApp);
+                } else {
+                    settingsApp = dataSnapshot.getValue(SettingsApp.class);
+                }
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -179,4 +213,44 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    private void switchTheme(){
+        int color1 = Color.parseColor(Theme.ORANGE.getColor1());;
+        int color2 = Color.parseColor(Theme.ORANGE.getColor2());;
+        switch (settingsApp.theme){
+            case 2:
+                color1 = Color.parseColor(Theme.GREEN.getColor1());
+                color2 = Color.parseColor(Theme.GREEN.getColor2());
+                break;
+            case 3:
+                color1 = Color.parseColor(Theme.GREY.getColor1());
+                color2 = Color.parseColor(Theme.GREY.getColor2());
+                break;
+        }
+
+        baseLayout.setBackgroundColor(color1);
+
+        card1.setCardBackgroundColor(color2);
+        card2.setCardBackgroundColor(color2);
+        card3.setCardBackgroundColor(color2);
+        card4.setCardBackgroundColor(color2);
+        card5.setCardBackgroundColor(color2);
+        card6.setCardBackgroundColor(color2);
+    }
+
+    private void updateUI(){
+        switchTheme();
+    }
+
+    private void findView(){
+        buttonSettings = (Button) findViewById(R.id.buttonSettings);
+        card1 = (CardView) findViewById(R.id.mainCard1);
+        card2 = (CardView) findViewById(R.id.mainCard2);
+        card3 = (CardView) findViewById(R.id.mainCard3);
+        card4 = (CardView) findViewById(R.id.mainCard4);
+        card5 = (CardView) findViewById(R.id.mainCard5);
+        card6 = (CardView) findViewById(R.id.mainCard6);
+        baseLayout = (LinearLayout) findViewById(R.id.mainBaseLayout);
+    }
+
 }

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorMultiSelectHighlight"
+    android:background="#FF9800"
     android:orientation="vertical"
-    tools:context="fr.vincentmazet.smartalarmclock.MainActivity">
+    tools:context="fr.vincentmazet.smartalarmclock.MainActivity"
+    android:id="@+id/mainBaseLayout">
 
 
     <LinearLayout
@@ -16,10 +17,11 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp">
 
             <Button
@@ -30,19 +32,21 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" >
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" />
     </LinearLayout>
 
@@ -90,26 +94,29 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp">
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/mainCard6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" />
 
     </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?android:attr/colorMultiSelectHighlight"
+    android:background="#FF9800"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp">
             <Button
                 android:id="@+id/buttonBackHome"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" >
 
             <TextView
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp" />
     </LinearLayout>
 
@@ -152,7 +152,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_orange_dark"
+                    android:background="#FFA726"
                     android:orientation="vertical"
                     android:clickable="true"></LinearLayout>
 
@@ -162,7 +162,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_green_light"
+                    android:background="#66BB6A"
                     android:orientation="vertical"
                     android:clickable="true"></LinearLayout>
 
@@ -172,7 +172,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@android:color/darker_gray"
+                    android:background="#BDBDBD"
                     android:orientation="vertical"
                     android:clickable="true">
 
@@ -193,7 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
+            app:cardBackgroundColor="#FFA726"
             app:contentPadding="20dp">
 
             <LinearLayout
@@ -234,8 +234,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
-            app:contentPadding="20dp" >
+            app:cardBackgroundColor="#FFA726"
+            app:contentPadding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -267,8 +267,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="@android:color/holo_orange_dark"
-            app:contentPadding="20dp" >
+            app:cardBackgroundColor="#FFA726"
+            app:contentPadding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
